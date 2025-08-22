@@ -7,6 +7,7 @@
 import { lazy } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import { Route } from '../types/route'
+import AuthLayout from '../layouts/AuthLayout'
 
 export const PUBLIC_ROUTER: Route[] = [
   {
@@ -16,15 +17,15 @@ export const PUBLIC_ROUTER: Route[] = [
     layout: MainLayout,
     label: 'Khám sức khỏe'
     // hiddenMenu: true
+  },
+  {
+    component: lazy(() => import('../pages/auth/Login')),
+    key: 'login',
+    path: '/auth/login',
+    layout: AuthLayout,
+    label: 'login',
+    hiddenMenu: true
   }
-  // {
-  //   component: lazy(() => import('@/pages/Auth/Register')),
-  //   key: 'register',
-  //   path: 'register',
-  //   layout: AuthLayout,
-  //   label: 'Register',
-  //   hiddenMenu: true
-  // },
   // {
   //   component: lazy(() => import('@/pages/404')),
   //   key: '404',

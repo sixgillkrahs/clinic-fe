@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { PRIVATE_ROUTER, PUBLIC_ROUTER } from '../routes/router'
 import { findPath } from '../utils'
 import ChangeLang from '../components/ChangeLang'
+import Avatar from '../components/Avatar'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -107,7 +108,10 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
               }}
             />
           </div>
-          <ChangeLang />
+          <div className='flex items-center gap-4 pr-4'>
+            <ChangeLang />
+            <Avatar />
+          </div>
         </Header>
         <Content style={{ margin: '24px 16px 0' }}>
           <div

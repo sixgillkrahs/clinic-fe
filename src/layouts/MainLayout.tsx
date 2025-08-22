@@ -20,7 +20,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   const [broken, setBroken] = useState<boolean>(false)
   // const { user } = useContext(AuthContext)
 
-  const menu = [...PRIVATE_ROUTER, ...PUBLIC_ROUTER].reduce<ItemType<MenuItemType>[]>((acc) => {
+  const menu = [...PRIVATE_ROUTER, ...PUBLIC_ROUTER].reduce<ItemType<MenuItemType>[]>((acc, item) => {
     // if (!item.hiddenMenu && user?.permissions.includes(item.permission || '')) {
     //   acc.push({
     //     title: item.label,
@@ -30,6 +30,23 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     //     children: item.children
     //   })
     // }
+    if (!item.hiddenMenu) {
+      acc.push({
+        title: item.label,
+        label: item.label,
+        icon: item.icon,
+        key: item.key,
+        children: item?.children?.map(
+          (child) =>
+            ({
+              title: child.label,
+              label: child.label,
+              icon: child.icon,
+              key: child.key
+            }) as ItemType<MenuItemType>
+        )
+      })
+    }
     return acc
   }, [])
 
@@ -65,6 +82,9 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           background: colorBgContainer
         }}
       >
+        <h1 className='text-center text-2xl font-bold mb-4' style={{ color: '#000000', padding: '16px 0' }}>
+          Logo
+        </h1>
         <Menu
           items={menu}
           selectedKeys={[window.location.pathname]}
@@ -74,7 +94,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} className='flex'>
+        <Header style={{ padding: 0, background: colorBgContainer }} className='flex justify-between items-center'>
           <div className='flex justify-between items-center h-full pr-4'>
             <Button
               type='text'

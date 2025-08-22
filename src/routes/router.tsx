@@ -11,11 +11,25 @@ import AuthLayout from '../layouts/AuthLayout'
 
 export const PUBLIC_ROUTER: Route[] = [
   {
+    component: lazy(() => import('../pages/Dashboard')),
+    key: 'dashboard',
+    path: 'dashboard',
+    layout: MainLayout,
+    hiddenMenu: false,
+    label: {
+      vi: 'Bảng điều khiển',
+      en: 'Dashboard'
+    }
+  },
+  {
     component: lazy(() => import('../pages/Test')),
     key: 'kham-suc-khoe',
     path: '',
     layout: MainLayout,
-    label: 'Khám sức khỏe'
+    label: {
+      vi: 'Khám sức khỏe',
+      en: 'Health Checkup'
+    }
     // hiddenMenu: true
   },
   {
@@ -23,16 +37,15 @@ export const PUBLIC_ROUTER: Route[] = [
     key: 'login',
     path: '/auth/login',
     layout: AuthLayout,
-    label: 'login',
+    hiddenMenu: true
+  },
+  {
+    component: lazy(() => import('../pages/404')),
+    key: '404',
+    path: '/404',
+    layout: MainLayout,
     hiddenMenu: true
   }
-  // {
-  //   component: lazy(() => import('@/pages/404')),
-  //   key: '404',
-  //   path: '/404',
-  //   layout: BlankLayout,
-  //   hiddenMenu: true
-  // }
 ]
 
 export const PRIVATE_ROUTER: Route[] = [

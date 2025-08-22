@@ -9,10 +9,14 @@ import { PRIVATE_ROUTER, PUBLIC_ROUTER } from '../routes/router'
 import { findPath } from '../utils'
 import ChangeLang from '../components/ChangeLang'
 import Avatar from '../components/Avatar'
+import { useTranslation } from 'react-i18next'
+
+type Lang = 'vi' | 'en'
 
 const { Header, Content, Footer, Sider } = Layout
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
+  const { i18n } = useTranslation()
   const navigate = useNavigate()
   const {
     token: { colorBgContainer, borderRadiusLG }
@@ -33,15 +37,15 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     // }
     if (!item.hiddenMenu) {
       acc.push({
-        title: item.label,
-        label: item.label,
+        title: item.label?.[i18n.language as Lang] || '',
+        label: item?.label?.[i18n.language as Lang] || '',
         icon: item.icon,
         key: item.key,
         children: item?.children?.map(
           (child) =>
             ({
-              title: child.label,
-              label: child.label,
+              title: child.label?.[i18n.language as Lang] || '',
+              label: item?.label?.[i18n.language as Lang] || '',
               icon: child.icon,
               key: child.key
             }) as ItemType<MenuItemType>
@@ -67,6 +71,10 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  const toHome = () => {
+    navigate('/dashboard')
+  }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
@@ -83,7 +91,11 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           background: colorBgContainer
         }}
       >
-        <h1 className='text-center text-2xl font-bold mb-4' style={{ color: '#000000', padding: '16px 0' }}>
+        <h1
+          className='text-center text-2xl font-bold mb-4 cursor-pointer'
+          style={{ color: '#000000', padding: '16px 0' }}
+          onClick={toHome}
+        >
           Logo
         </h1>
         <Menu

@@ -7,7 +7,10 @@ export interface Route extends ChildRoute {
 export interface ChildRoute {
   key: string
   path: string
-  label?: string
+  label?: {
+    vi: string
+    en: string
+  }
   redirectTo?: string
   meta?: Record<string, unknown>
   component: LazyExoticComponent<() => JSX.Element>
